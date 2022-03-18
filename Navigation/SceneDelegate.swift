@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Navigation
 //
-//  Created by Юлия Малюгина on 18.03.2022.
+//  Created by Юлия on 18.03.2022.
 //
 
 import UIKit
@@ -13,10 +13,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = createTabBarController()
+        window?.makeKeyAndVisible()
+        
+        func createFeedViewController() -> UINavigationController {
+            let feedViewController = FeedViewController()
+            feedViewController.title = "Лента"
+            feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "doc.richtext"), tag: 0)
+            return UINavigationController(rootViewController: feedViewController)
+        }
+        
+        func createProfileViewController() -> UINavigationController {
+            let profileViewController = ProfileViewController()
+            profileViewController.title = "Профиль"
+            profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.circle"), tag: 1)
+            return UINavigationController(rootViewController: profileViewController)
+        }
+        
+        func createTabBarController() -> UITabBarController {
+            let tabBarController = UITabBarController()
+            UITabBar.appearance().backgroundColor = .white
+            tabBarController.viewControllers = [createFeedViewController(), createProfileViewController()]
+            return tabBarController
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
