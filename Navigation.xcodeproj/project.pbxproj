@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C482DBE627E4485F0069A7DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBE527E4485F0069A7DB /* AppDelegate.swift */; };
 		C482DBE827E4485F0069A7DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBE727E4485F0069A7DB /* SceneDelegate.swift */; };
-		C482DBEA27E4485F0069A7DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBE927E4485F0069A7DB /* ViewController.swift */; };
 		C482DBEF27E448620069A7DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C482DBEE27E448620069A7DB /* Assets.xcassets */; };
 		C482DBF227E448620069A7DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C482DBF027E448620069A7DB /* LaunchScreen.storyboard */; };
 		C482DBFA27E4668A0069A7DB /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBF927E4668A0069A7DB /* FeedViewController.swift */; };
@@ -22,7 +21,6 @@
 		C482DBE227E4485F0069A7DB /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C482DBE527E4485F0069A7DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C482DBE727E4485F0069A7DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C482DBE927E4485F0069A7DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C482DBEE27E448620069A7DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C482DBF127E448620069A7DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C482DBF327E448620069A7DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 				C482DBFB27E4669E0069A7DB /* ProfileViewController.swift */,
 				C482DBFD27E467D40069A7DB /* PostViewController.swift */,
 				C482DBFF27E468130069A7DB /* InfoViewController.swift */,
-				C482DBE927E4485F0069A7DB /* ViewController.swift */,
 				C482DBEE27E448620069A7DB /* Assets.xcassets */,
 				C482DBF027E448620069A7DB /* LaunchScreen.storyboard */,
 				C482DBF327E448620069A7DB /* Info.plist */,
@@ -147,7 +144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C482DBFE27E467D40069A7DB /* PostViewController.swift in Sources */,
-				C482DBEA27E4485F0069A7DB /* ViewController.swift in Sources */,
 				C482DBE627E4485F0069A7DB /* AppDelegate.swift in Sources */,
 				C482DC0027E468130069A7DB /* InfoViewController.swift in Sources */,
 				C482DBFC27E4669E0069A7DB /* ProfileViewController.swift in Sources */,
@@ -308,7 +304,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -334,7 +330,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
