@@ -9,37 +9,63 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
-    private let button: UIButton = {
-        let button = UIButton()
-        button.setTitle(" Мой пост", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.clipsToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
-
+    
+    private let buttonOne: UIButton = {
+           let buttonOne = UIButton()
+        buttonOne.setTitle("buttonOne", for: .normal)
+        buttonOne.backgroundColor = .systemBlue
+        buttonOne.setTitleColor(.white, for: .normal)
+        buttonOne.layer.cornerRadius = 12
+        buttonOne.clipsToBounds = true
+        buttonOne.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        buttonOne.translatesAutoresizingMaskIntoConstraints = false
+           return buttonOne
+       }()
+    
+    private let buttonTwo: UIButton = {
+           let buttonTwo = UIButton()
+        buttonTwo.setTitle("buttonTwo", for: .normal)
+        buttonTwo.backgroundColor = .systemBlue
+        buttonTwo.setTitleColor(.white, for: .normal)
+        buttonTwo.layer.cornerRadius = 12
+        buttonTwo.clipsToBounds = true
+        buttonTwo.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        buttonTwo.translatesAutoresizingMaskIntoConstraints = false
+           return buttonTwo
+       }()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(button)
         setupViews()
-        button.addTarget(self, action:#selector(didTabButton), for: .touchUpInside)
-        self.button.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        self.button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-        self.button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-        self.button.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     @objc private func didTabButton() {
         let postViewController = PostViewController()
-        postViewController.navigationItem.title = "Мой пост"
+        postViewController.navigationItem.title = "Post"
         self.navigationController?.pushViewController(postViewController, animated: true)
     }
-    
+
     private func setupViews() {
-        title = "Пост"
-        view.addSubview(button)
+        title = "Post"
+        view.addSubview(buttonStackView)
+        self.buttonStackView.addArrangedSubview(self.buttonOne)
+        self.buttonStackView.addArrangedSubview(self.buttonTwo)
+        
+        let topConstraint = self.buttonStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)
+    let leadingConstraint = self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
+    let trailingConstraint = self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        let heightConstraint = self.buttonStackView.heightAnchor.constraint(equalToConstant: 110)
+    
+    NSLayoutConstraint.activate([
+        topConstraint, leadingConstraint, trailingConstraint, heightConstraint
+    ].compactMap({ $0 }))
     }
 }
