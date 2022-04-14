@@ -23,6 +23,7 @@
 		C4476F4B27E547AB00EBFC90 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4476F4A27E547AB00EBFC90 /* PostViewController.swift */; };
 		C4476F4D27E5481100EBFC90 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4476F4C27E5481100EBFC90 /* InfoViewController.swift */; };
 		C4476F5027E548C000EBFC90 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4476F4F27E548C000EBFC90 /* ProfileHeaderView.swift */; };
+		C461E202280821B500A63132 /* AnimaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C461E201280821B500A63132 /* AnimaViewController.swift */; };
 		C482DBE627E4485F0069A7DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBE527E4485F0069A7DB /* AppDelegate.swift */; };
 		C482DBE827E4485F0069A7DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C482DBE727E4485F0069A7DB /* SceneDelegate.swift */; };
 		C482DBEF27E448620069A7DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C482DBEE27E448620069A7DB /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		C4476F4A27E547AB00EBFC90 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		C4476F4C27E5481100EBFC90 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C4476F4F27E548C000EBFC90 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		C461E201280821B500A63132 /* AnimaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimaViewController.swift; sourceTree = "<group>"; };
 		C482DBE227E4485F0069A7DB /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C482DBE527E4485F0069A7DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C482DBE727E4485F0069A7DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		C461E2002808216F00A63132 /* Animated */ = {
+			isa = PBXGroup;
+			children = (
+				C461E201280821B500A63132 /* AnimaViewController.swift */,
+			);
+			path = Animated;
+			sourceTree = "<group>";
+		};
 		C482DBD927E4485F0069A7DB = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +149,7 @@
 				C4476F4A27E547AB00EBFC90 /* PostViewController.swift */,
 				C4476F4C27E5481100EBFC90 /* InfoViewController.swift */,
 				C426CCE327F914EE0042EA5B /* TabBarController.swift */,
+				C461E2002808216F00A63132 /* Animated */,
 				C426CCD827F90FC50042EA5B /* Model */,
 				C4476F4E27E5486700EBFC90 /* Profile */,
 				C482DBEE27E448620069A7DB /* Assets.xcassets */,
@@ -231,6 +242,7 @@
 				C4476F4927E5470000EBFC90 /* ProfileViewController.swift in Sources */,
 				C4476F4727E546E000EBFC90 /* FeedViewController.swift in Sources */,
 				C4476F5027E548C000EBFC90 /* ProfileHeaderView.swift in Sources */,
+				C461E202280821B500A63132 /* AnimaViewController.swift in Sources */,
 				C426CCE227F914480042EA5B /* UIColor+extension.swift in Sources */,
 				C426CCEB27F916A40042EA5B /* PostTableViewCell.swift in Sources */,
 				C43DC7F82800EE3C00074C1C /* PhotosViewController.swift in Sources */,
