@@ -117,9 +117,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(LogInViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification,
+                                               selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -143,31 +143,23 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.textFieldStackView.addArrangedSubview(self.loginTextField)
         self.textFieldStackView.addArrangedSubview(self.passwordTextField)
         
-        let scrollViewTopConstraint = self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor)
-        let scrollViewRightConstraint = self.scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
-        let scrollViewLeftConstraint = self.scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor)
-        let scrollViewBottomConstraint = self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        
-
-        let imageViewTopConstraint = self.imageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 120)
-        let imageViewCenterXConstraint = self.imageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
-        let imageViewHeightConstraint = self.imageView.heightAnchor.constraint(equalToConstant: 100)
-        let imageViewAspectConstraint = self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 1.0)
-        
-        let stackViewCenterXConstraint = self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
-        let stackViewCenterYConstraint = self.stackView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor)
-        let stackViewLeadingXConstraint = self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 16)
-        let stackViewTrailingXConstraint = self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -16)
-        
-        let loginTextFieldHeightConstraint = self.loginTextField.heightAnchor.constraint(equalToConstant: 50)
-        let passwordTextFieldHeightConstraint = self.passwordTextField.heightAnchor.constraint(equalToConstant: 50)
-        let heightButtonConstraint = self.logInButton.heightAnchor.constraint(equalToConstant: 50)
-
         NSLayoutConstraint.activate([
-            scrollViewTopConstraint, scrollViewRightConstraint, scrollViewLeftConstraint, scrollViewBottomConstraint,
-            imageViewTopConstraint, imageViewCenterXConstraint, imageViewHeightConstraint, imageViewAspectConstraint,
-            stackViewCenterXConstraint, stackViewCenterYConstraint, stackViewLeadingXConstraint, stackViewTrailingXConstraint,
-            loginTextFieldHeightConstraint, passwordTextFieldHeightConstraint, heightButtonConstraint
+            self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            self.scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.imageView.bottomAnchor.constraint(equalTo: self.stackView.topAnchor, constant: -30),
+            self.imageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.imageView.heightAnchor.constraint(equalToConstant: 100),
+            self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 1.0),
+            self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.stackView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor),
+            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 16),
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -16),
+            self.loginTextField.heightAnchor.constraint(equalToConstant: 50),
+            self.passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+            self.logInButton.heightAnchor.constraint(equalToConstant: 50),
+            //self.label.heightAnchor.constraint(equalToConstant: 20)
             ])
     }
     
