@@ -61,6 +61,7 @@ final class PostTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -69,11 +70,12 @@ final class PostTableViewCell: UITableViewCell {
         let label = UILabel()
         label.backgroundColor = .clear
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Likes:"
+        label.text = "Likes: "
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.frame.size.width
         label.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)
         label.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
+        label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -82,7 +84,7 @@ final class PostTableViewCell: UITableViewCell {
         let label = UILabel()
         label.backgroundColor = .clear
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Views:"
+        label.text = "Views: "
         label.textColor = .black
         label.preferredMaxLayoutWidth = self.frame.size.width
         label.setContentCompressionResistancePriority(UILayoutPriority(250), for: .vertical)
@@ -93,6 +95,8 @@ final class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
+        self.setupGesture()
+        self.setupGesture1()
     }
     
     required init?(coder: NSCoder) {
@@ -175,6 +179,46 @@ final class PostTableViewCell: UITableViewCell {
         topConstraint, leadingConstraint, trailingConstraint, bottomConstraint
         ]
     }
+    
+    private let tapGestureRecognizer = UITapGestureRecognizer()
+    private let tapGestureRecognizer1 = UITapGestureRecognizer()
+
+    private func setupGesture() {
+        self.tapGestureRecognizer.addTarget(self, action: #selector(handlePanGesture(_ :)))
+        self.likesLabel.addGestureRecognizer(self.tapGestureRecognizer)
+    }
+
+    @objc private func handlePanGesture(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard self.tapGestureRecognizer === gestureRecognizer else { return }
+        let userLikes = 0
+        if likesLabel.isUserInteractionEnabled == true {
+            self.likesLabel.text? += String(userLikes + 1)
+        } else {
+            self.likesLabel.text? += String(userLikes)
+        }
+    }
+    
+    private func setupGesture1() {
+        self.tapGestureRecognizer1.addTarget(self, action: #selector(handlePanGesture1(_ :)))
+        self.postImageView.addGestureRecognizer(self.tapGestureRecognizer1)
+    }
+
+    @objc private func handlePanGesture1(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard self.tapGestureRecognizer1 === gestureRecognizer else { return }
+        print("tap")
+    
+        UIView.animate(withDuration: 3) {
+            self.postImageView.layoutIfNeeded()
+            } completion: { _ in
+            }
+                 
+        let userViews = 0
+        if postImageView.isUserInteractionEnabled == true {
+            self.viewsLabel.text? += String(userViews + 1)
+        } else {
+            self.viewsLabel.text? += String(userViews)
+        }
+    }
 }
     extension PostTableViewCell: Setupable {
         
@@ -185,7 +229,5 @@ final class PostTableViewCell: UITableViewCell {
             self.descriptionLabel.text = viewModel.description
             self.postImageView.image = UIImage(named: viewModel.image)
             self.descriptionLabel.text = viewModel.description
-            self.likesLabel.text? += String(viewModel.likes)
-            self.viewsLabel.text? += String(viewModel.views)
             }
     }

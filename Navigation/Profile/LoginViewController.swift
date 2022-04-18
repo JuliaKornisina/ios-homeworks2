@@ -63,6 +63,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return passwordTextField
     }()
     
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .regular)
+        label.textColor = .black
+        label.backgroundColor = .systemGray6
+        label.layer.borderWidth = 0.3
+        label.layer.borderColor = UIColor.lightGray.cgColor
+        label.layer.cornerRadius = 10
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
@@ -139,6 +151,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.scrollView.addSubview(self.stackView)
         self.scrollView.addSubview(self.imageView)
         self.stackView.addArrangedSubview(self.textFieldStackView)
+        self.stackView.addArrangedSubview(self.label)
         self.stackView.addArrangedSubview(self.logInButton)
         self.textFieldStackView.addArrangedSubview(self.loginTextField)
         self.textFieldStackView.addArrangedSubview(self.passwordTextField)
@@ -148,18 +161,21 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             self.scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             self.scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
             self.imageView.bottomAnchor.constraint(equalTo: self.stackView.topAnchor, constant: -30),
             self.imageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             self.imageView.heightAnchor.constraint(equalToConstant: 100),
             self.imageView.heightAnchor.constraint(equalTo: self.imageView.widthAnchor, multiplier: 1.0),
+            
             self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             self.stackView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 16),
             self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -16),
+            
             self.loginTextField.heightAnchor.constraint(equalToConstant: 50),
             self.passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             self.logInButton.heightAnchor.constraint(equalToConstant: 50),
-            //self.label.heightAnchor.constraint(equalToConstant: 20)
+            self.label.heightAnchor.constraint(equalToConstant: 20)
             ])
     }
     
@@ -173,6 +189,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return false
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Attention", message: "Login and password entered incorrectly", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: {action in print {"OK"}})
+        alert.addAction(okButton)
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc private func didTapLogButton() {
         if logInButton.isSelected {
             logInButton.alpha = 0.8
@@ -183,7 +206,27 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         } else {
             logInButton.alpha = 1
         }
-        let profileViewController = ProfileViewController()
-        self.navigationController?.pushViewController(profileViewController, animated: true)
+        let login = "ju@mail.ru"
+        let password = "12345"
+        let login1 = loginTextField.text!
+        let password1 = passwordTextField.text!
+        
+        if !login1.isEmpty && !password1.isEmpty {
+            if passwordTextField.text?.count == 5 {
+            if loginTextField.text == login && passwordTextField.text == password {
+            let profileViewController = ProfileViewController()
+                    self.navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            self.label.isHidden = true
+            showAlert()
+        }
+        } else {
+            self.label.text = "Enter characters in the password field"
+        }
+        } else {
+            self.loginTextField.layer.borderColor = UIColor.red.cgColor
+            self.passwordTextField.layer.borderColor = UIColor.red.cgColor
+            self.textFieldStackView.layer.borderColor = UIColor.red.cgColor
+        }
     }
 }
