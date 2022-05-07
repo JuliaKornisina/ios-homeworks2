@@ -73,7 +73,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotosCollectionViewCell
         let image = images[indexPath.item]
-        cell.photoImageView.image = image
+        cell.photoView.image = image
         return cell
     }
     

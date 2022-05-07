@@ -7,56 +7,36 @@
 
 import UIKit
 
+import UIKit
+
 class PhotosCollectionViewCell: UICollectionViewCell {
-    
-    var photoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .white
-        imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+
+    lazy var photoView: UIImageView = {
+        let photo = UIImageView()
+        photo.translatesAutoresizingMaskIntoConstraints = false
+        photo.contentMode = .scaleAspectFill
+        photo.clipsToBounds = true
+        return photo
     }()
-    
-    
-    private let tapGestureRecognizer = UITapGestureRecognizer()
-    
-    private var topConstraint: NSLayoutConstraint?
-    private var leadingConstraint: NSLayoutConstraint?
-    private var trailingConstraint: NSLayoutConstraint?
-    private var bottomConstraint: NSLayoutConstraint?
-    private var heightImageConstraint: NSLayoutConstraint?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.addSubview(self.photoImageView)
-        self.setupGesture()
-        
-        self.topConstraint = self.photoImageView.topAnchor.constraint(equalTo: self.topAnchor)
-        self.leadingConstraint = self.photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        self.trailingConstraint = self.photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        self.bottomConstraint = self.photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        self.contentView.addSubview(self.photoView)
 
-        
         NSLayoutConstraint.activate([
-            self.topConstraint, self.leadingConstraint, self.trailingConstraint, self.bottomConstraint
-        ].compactMap({ $0 }))
+            self.photoView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.photoView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.photoView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            self.photoView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+        ])
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func setupGesture() {
-        self.tapGestureRecognizer.addTarget(self, action: #selector(self.handleTapGesture(_:)))
-        self.photoImageView.addGestureRecognizer(self.tapGestureRecognizer)
-    }
 
-    @objc private func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard self.tapGestureRecognizer === gestureRecognizer else { return }
-        print("tap")
-        NSLayoutConstraint.activate([self.photoImageView.heightAnchor.constraint(equalToConstant: self.bounds.height)])
-        NSLayoutConstraint.deactivate([self.topConstraint, self.leadingConstraint, self.trailingConstraint, self.bottomConstraint].compactMap({ $0 }))
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.photoView.image = nil
     }
 }
