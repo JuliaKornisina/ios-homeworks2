@@ -2,7 +2,7 @@
 //  PhotosViewController.swift
 //  Navigation
 //
-//  Created by Юлия on 09.04.2022.
+//  Created by Юлия Корнишина on 09.04.2022.
 //
 
 import UIKit
@@ -43,13 +43,11 @@ class PhotosViewController: UIViewController {
             }
         }
         
-        let topConstraint = self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor)
-        let leadingConstraint = self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
-        let trailingConstraint = self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        let bottomConstraint = self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            
             NSLayoutConstraint.activate([
-                topConstraint, leadingConstraint, trailingConstraint, bottomConstraint
+                self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ])
     }
     
@@ -69,9 +67,8 @@ class PhotosViewController: UIViewController {
 
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count 
+        return images.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotosCollectionViewCell
@@ -87,5 +84,34 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let animationCell = AnimationPhotoCell()
+        animationCell.delegate = self
+        self.view.addSubview(animationCell)
+        animationCell.imageAnimationCell.image = images[indexPath.item]
+        navigationController?.navigationBar.isHidden = true
+        NSLayoutConstraint.activate([
+            animationCell.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animationCell.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            animationCell.topAnchor.constraint(equalTo: view.topAnchor),
+            animationCell.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        UIView.animate(withDuration: 1, animations: {
+            self.view.layoutIfNeeded()
+        }) { _ in
+            UIView.animate(withDuration: 0.3) {
+                animationCell.buttonCancel.alpha = 1
+                animationCell.backgroundColor = .white.withAlphaComponent(0.8)
+            }
+        }
+    }
+}
+
+extension PhotosViewController: AnimationPhotoCellDelegate {
+    func tapButton(view: AnimationPhotoCell) {
+        view.removeFromSuperview()
+        navigationController?.navigationBar.isHidden = false
     }
 }

@@ -2,7 +2,7 @@
 //  PhotosCollectionViewCell.swift
 //  Navigation
 //
-//  Created by Юлия on 09.04.2022.
+//  Created by Юлия Корнишина on 09.04.2022.
 //
 
 import UIKit

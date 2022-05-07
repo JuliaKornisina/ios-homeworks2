@@ -2,7 +2,7 @@
 //  FeedViewController.swift
 //  Navigation
 //
-//  Created by Юлия on 19.03.2022.
+//  Created by Юлия Корнишина on 19.03.2022.
 //
 
 import UIKit
@@ -25,7 +25,7 @@ class FeedViewController: UIViewController {
         buttonOne.setTitleColor(.white, for: .normal)
         buttonOne.layer.cornerRadius = 12
         buttonOne.clipsToBounds = true
-        buttonOne.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        buttonOne.addTarget(FeedViewController.self, action: #selector(didTabButton), for: .touchUpInside)
         buttonOne.translatesAutoresizingMaskIntoConstraints = false
            return buttonOne
        }()
@@ -37,7 +37,7 @@ class FeedViewController: UIViewController {
         buttonTwo.setTitleColor(.white, for: .normal)
         buttonTwo.layer.cornerRadius = 12
         buttonTwo.clipsToBounds = true
-        buttonTwo.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        buttonTwo.addTarget(FeedViewController.self, action: #selector(didTabButton), for: .touchUpInside)
         buttonTwo.translatesAutoresizingMaskIntoConstraints = false
            return buttonTwo
        }()
@@ -59,13 +59,11 @@ class FeedViewController: UIViewController {
         self.buttonStackView.addArrangedSubview(self.buttonOne)
         self.buttonStackView.addArrangedSubview(self.buttonTwo)
         
-        let topConstraint = self.buttonStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)
-    let leadingConstraint = self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor)
-    let trailingConstraint = self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
-        let heightConstraint = self.buttonStackView.heightAnchor.constraint(equalToConstant: 110)
-    
-    NSLayoutConstraint.activate([
-        topConstraint, leadingConstraint, trailingConstraint, heightConstraint
-    ].compactMap({ $0 }))
+        NSLayoutConstraint.activate([
+            self.buttonStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
+            self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            self.buttonStackView.heightAnchor.constraint(equalToConstant: 110)
+        ])
     }
 }

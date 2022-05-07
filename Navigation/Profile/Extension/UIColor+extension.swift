@@ -2,7 +2,7 @@
 //  UIColor+extension.swift
 //  Navigation
 //
-//  Created by Юлия on 03.04.2022.
+//  Created by Юлия Корнишина on 03.04.2022.
 //
 
 import UIKit

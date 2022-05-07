@@ -2,7 +2,7 @@
 //  PhotosTableViewCell.swift
 //  Navigation
 //
-//  Created by Юлия on 09.04.2022.
+//  Created by Юлия Корнишина on 09.04.2022.
 //
 
 import UIKit
@@ -82,7 +82,25 @@ class PhotosTableViewCell: UITableViewCell {
         self.backView.addSubview(self.photoCollectionView)
         self.stackView.addArrangedSubview(self.photoLabel)
         self.stackView.addArrangedSubview(self.arrowImage)
-        activateConstraints()
+        NSLayoutConstraint.activate([
+            self.backView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            self.backView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.backView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            self.backView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
+            
+            self.stackView.topAnchor.constraint(equalTo: self.backView.topAnchor, constant: 12),
+            self.stackView.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 12),
+            self.stackView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -12),
+            
+            self.arrowImage.centerYAnchor.constraint(equalTo: self.photoLabel.centerYAnchor),
+           
+            self.photoCollectionView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor),
+            self.photoCollectionView.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 12),
+            self.photoCollectionView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -12),
+            self.photoCollectionView.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -12),
+            self.photoCollectionView.heightAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.25)
+        ])
+        
         for i in 0...19 {
             if let image = UIImage(named: "m\(i)") {
                 images.append(image)
@@ -90,34 +108,7 @@ class PhotosTableViewCell: UITableViewCell {
         }
     }
     
-    func activateConstraints() {
-        let topConstraint = self.backView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16)
-        let leadingConstraint = self.backView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
-        let trailingConstraint = self.backView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
-        let bottomConstraint = self.backView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
-        
-        let stackViewTopConstraint = self.stackView.topAnchor.constraint(equalTo: self.backView.topAnchor, constant: 12)
-        let stackViewLeadingConstraint = self.stackView.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 12)
-        let stackViewTrailingConstraint = self.stackView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -12)
-        
-        let imageYAnchorConstraint = self.arrowImage.centerYAnchor.constraint(equalTo: self.photoLabel.centerYAnchor)
-        
-        let photoCollectionViewTopConstraint = self.photoCollectionView.topAnchor.constraint(equalTo: self.stackView.bottomAnchor)
-        let photoCollectionViewLeadingConstraint = self.photoCollectionView.leadingAnchor.constraint(equalTo: self.backView.leadingAnchor, constant: 12)
-        let photoCollectionViewTrailingConstraint = self.photoCollectionView.trailingAnchor.constraint(equalTo: self.backView.trailingAnchor, constant: -12)
-        let photoCollectionViewBottomConstraint = self.photoCollectionView.bottomAnchor.constraint(equalTo: self.backView.bottomAnchor, constant: -12)
-        let photoCollectionViewHeightConstraint = self.photoCollectionView.heightAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.25)
-        
-        NSLayoutConstraint.activate([
-            topConstraint, leadingConstraint, trailingConstraint, bottomConstraint,
-            stackViewTopConstraint, stackViewLeadingConstraint, stackViewTrailingConstraint,
-            imageYAnchorConstraint,
-            photoCollectionViewTopConstraint, photoCollectionViewLeadingConstraint, photoCollectionViewTrailingConstraint,
-            photoCollectionViewBottomConstraint, photoCollectionViewHeightConstraint
-        ])
-    }
-    
-    func itemSize(for width: CGFloat, with spacing: CGFloat) -> CGSize { // размер ячейки
+    func itemSize(for width: CGFloat, with spacing: CGFloat) -> CGSize {
         let needWidth = width - 4 * spacing
         let itemWidth = floor(needWidth / Constant.itemCount)
         return CGSize(width: itemWidth, height: itemWidth)

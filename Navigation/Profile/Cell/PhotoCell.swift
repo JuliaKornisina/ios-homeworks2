@@ -2,7 +2,7 @@
 //  PhotoCell.swift
 //  Navigation
 //
-//  Created by Юлия on 09.04.2022.
+//  Created by Юлия Корнишина on 09.04.2022.
 //
 
 import UIKit
@@ -22,14 +22,11 @@ class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.photoImageView)
-        
-        let topConstraint = self.photoImageView.topAnchor.constraint(equalTo: self.topAnchor)
-        let leadingConstraint = self.photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        let trailingConstraint = self.photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        let bottomConstraint = self.photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        
         NSLayoutConstraint.activate([
-            topConstraint, leadingConstraint, trailingConstraint, bottomConstraint
+            self.photoImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     

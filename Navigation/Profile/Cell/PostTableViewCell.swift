@@ -2,11 +2,15 @@
 //  File.swift
 //  Navigation
 //
-//  Created by Юлия on 03.04.2022.
+//  Created by Юлия Корнишина on 03.04.2022.
 //
 
-
 import UIKit
+
+protocol PostTableViewCellProtocol: AnyObject {
+    func tapPosts(cell: PostTableViewCell)
+    func tapLikes(cell: PostTableViewCell)
+}
 
 final class PostTableViewCell: UITableViewCell {
     
@@ -96,14 +100,14 @@ final class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
         self.setupGesture()
-        self.setupGesture1()
+       
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() { // обнуление информации в ячейках
+    override func prepareForReuse() {
         super.prepareForReuse()
         self.authorLabel.text = nil
         self.descriptionLabel.text = nil
@@ -121,7 +125,6 @@ final class PostTableViewCell: UITableViewCell {
         self.lightGrayView.addSubview(self.stackView)
         self.stackView.addArrangedSubview(self.likesLabel)
         self.stackView.addArrangedSubview(self.viewsLabel)
-        
         
         let lightGrayViewConstraints = self.lightGrayViewConstraints()
         let authorLabelConstraints = self.authorLabelConstraints()
@@ -147,7 +150,7 @@ final class PostTableViewCell: UITableViewCell {
         let leadingConstraint = self.authorLabel.leadingAnchor.constraint(equalTo: self.lightGrayView.leadingAnchor, constant: 16)
         let trailingConstraint = self.authorLabel.trailingAnchor.constraint(equalTo: self.lightGrayView.trailingAnchor, constant: -16)
         return [
-        topConstraint, leadingConstraint, trailingConstraint //bottomConstraint
+        topConstraint, leadingConstraint, trailingConstraint
         ]
     }
     
@@ -180,54 +183,41 @@ final class PostTableViewCell: UITableViewCell {
         ]
     }
     
-    private let tapGestureRecognizer = UITapGestureRecognizer()
-    private let tapGestureRecognizer1 = UITapGestureRecognizer()
-
-    private func setupGesture() {
-        self.tapGestureRecognizer.addTarget(self, action: #selector(handlePanGesture(_ :)))
-        self.likesLabel.addGestureRecognizer(self.tapGestureRecognizer)
-    }
-
-    @objc private func handlePanGesture(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard self.tapGestureRecognizer === gestureRecognizer else { return }
-        let userLikes = 0
-        if likesLabel.isUserInteractionEnabled == true {
-            self.likesLabel.text? += String(userLikes + 1)
-        } else {
-            self.likesLabel.text? += String(userLikes)
-        }
-    }
-    
-    private func setupGesture1() {
-        self.tapGestureRecognizer1.addTarget(self, action: #selector(handlePanGesture1(_ :)))
-        self.postImageView.addGestureRecognizer(self.tapGestureRecognizer1)
-    }
-
-    @objc private func handlePanGesture1(_ gestureRecognizer: UITapGestureRecognizer) {
-        guard self.tapGestureRecognizer1 === gestureRecognizer else { return }
-        print("tap")
-    
-        UIView.animate(withDuration: 3) {
-            self.postImageView.layoutIfNeeded()
-            } completion: { _ in
-            }
-                 
-        let userViews = 0
-        if postImageView.isUserInteractionEnabled == true {
-            self.viewsLabel.text? += String(userViews + 1)
-        } else {
-            self.viewsLabel.text? += String(userViews)
-        }
-    }
+    weak var delegate: PostTableViewCellProtocol?
+    private let tapLikesGestureRecognizer = UITapGestureRecognizer()
+    private let tapPostsGestureRecognizer = UITapGestureRecognizer()
 }
+
     extension PostTableViewCell: Setupable {
         
         func setup(with viewModel: ViewModelProtocol) {
             guard let viewModel = viewModel as? ViewModel else { return }
-            
             self.authorLabel.text = viewModel.author
-            self.descriptionLabel.text = viewModel.description
             self.postImageView.image = UIImage(named: viewModel.image)
             self.descriptionLabel.text = viewModel.description
-            }
+            self.likesLabel.text = "Likes: " + String(viewModel.likes)
+            self.viewsLabel.text = "Views: " + String(viewModel.views)
+        }
     }
+
+
+extension PostTableViewCell {
+    private func setupGesture() {
+        self.tapLikesGestureRecognizer.addTarget(self, action: #selector(self.likesHandleTapGesture(_:)))
+        self.likesLabel.addGestureRecognizer(self.tapLikesGestureRecognizer)
+        self.likesLabel.isUserInteractionEnabled = true
+        self.tapPostsGestureRecognizer.addTarget(self, action: #selector(self.postsHandleTapGesture(_:)))
+        self.postImageView.addGestureRecognizer(self.tapPostsGestureRecognizer)
+        self.postImageView.isUserInteractionEnabled = true
+    }
+    
+    @objc func likesHandleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard self.tapLikesGestureRecognizer === gestureRecognizer else { return }
+        delegate?.tapLikes(cell: self)
+    }
+    
+    @objc func postsHandleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard self.tapPostsGestureRecognizer === gestureRecognizer else { return }
+        delegate?.tapPosts(cell: self)
+    }
+}
