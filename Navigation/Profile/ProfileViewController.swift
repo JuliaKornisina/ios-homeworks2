@@ -41,7 +41,7 @@ final class ProfileViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupView() {
@@ -103,11 +103,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ProfileHeaderView()//+
+        return ProfileHeaderView()
     } //+
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 250 //+
+        return 250
     } //+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
